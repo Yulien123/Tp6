@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package frame.internals.eliminar;
 
 import entitys.Producto;
@@ -173,22 +169,19 @@ public class Eliminar extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //Borra del treeset el producto seleccionado
     private void jbBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBorrarActionPerformed
-
         try {
             prodEncontrado = null;
             int codigo = Integer.parseInt(jtfCodigoAEliminar.getText());
             int stock = Integer.parseInt(jsCantidadAEliminar.getValue().toString());
             String motivo = jtfMotivo.getText();
-
             for (Producto prod : listaProductos) {
                 if (prod.getCodigo() == codigo) {
                     prodEncontrado = prod;
                     break;
                 }
             }
-
             if (prodEncontrado == null) {
                 JOptionPane.showMessageDialog(this, "No se encontro el producto");
             } else if (stock < prodEncontrado.getStock()) {
@@ -205,7 +198,7 @@ public class Eliminar extends javax.swing.JInternalFrame {
             return;
         }
     }//GEN-LAST:event_jbBorrarActionPerformed
-
+    //Pone en cantidad todo lo que contenga el stock del producto
     private void jbTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbTodoActionPerformed
         try {
             boolean flag = false;
@@ -224,7 +217,6 @@ public class Eliminar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbTodoActionPerformed
 
     private void jtfCodigoAEliminarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCodigoAEliminarKeyReleased
-
         borrarFilas(); //llamo al metodo para borrar filas al buscar
         for (Producto it : listaProductos) { //al ser el treeset static puedo acceder desde acá..
             String code = String.valueOf(it.getCodigo());
@@ -238,26 +230,25 @@ public class Eliminar extends javax.swing.JInternalFrame {
         jbTodo.setEnabled(true);
         jtfMotivo.setEnabled(true);
     }//GEN-LAST:event_jtfCodigoAEliminarKeyReleased
-
+    //Sale del internal Eliminar
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_jbCancelarActionPerformed
-
+    //Pone en el campo del codigo el codigo clickeado en la table
     private void jtTablaEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtTablaEliminarMouseClicked
         int filaselected = jtTablaEliminar.getSelectedRow();
         int codigoSelected = (Integer) jtTablaEliminar.getValueAt(filaselected, 0);
         jtfCodigoAEliminar.setText(codigoSelected + "");
     }//GEN-LAST:event_jtTablaEliminarMouseClicked
-
+    //Arma la tabla
     private void armarCabecera() {
         modelo.addColumn("Código");
         modelo.addColumn("Descripcion");
         modelo.addColumn("Stock");
         jtTablaEliminar.setModel(modelo);
     }
-
+    //Borra la filas no usadas de la tabla
     private void borrarFilas() {
-        //este metodo borra las filas de productos en el buscador
         int f = jtTablaEliminar.getRowCount() - 1; //cuenta las filas -1
         for (; f >= 0; f--) { //inicializa f arriba
             modelo.removeRow(f);
