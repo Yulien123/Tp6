@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package frame.internals;
 
 import entitys.Producto;
@@ -13,12 +9,14 @@ import javax.swing.table.DefaultTableModel;
  * @author julan
  */
 public class PorNombre extends javax.swing.JInternalFrame {
-    private DefaultTableModel modelo = new DefaultTableModel (){
-        public boolean esCeldaEditable(int f, int c){
+
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        public boolean esCeldaEditable(int f, int c) {
             //este metodo retorna v o f si la celda en la que esta es editable o no
             return false;
         }
     };
+
     /**
      * Creates new form PorNombre
      */
@@ -109,22 +107,36 @@ public class PorNombre extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfNombreActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jtfNombreActionPerformed
 
+    //Captura el textfield para recorrer la lista de productos(treeset)
     private void jtfNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNombreKeyReleased
-        // captura el textfield para recorrer la lista de productos(treeset)
         borrarFilas(); //llamo al metodo para borrar filas al buscar
-        for(Producto it: listaProductos){ //al ser el treeset static puedo acceder desde acá..
-            if(it.getDescripcion().startsWith(jtfNombre.getText())){
+        for (Producto it : listaProductos) { //al ser el treeset static puedo acceder desde acá..
+            if (it.getDescripcion().toLowerCase().startsWith(jtfNombre.getText().toLowerCase())) {
                 // solo agrega comienza con la letra que pone el 
-                modelo.addRow(new Object[]{it.getCodigo(),it.getDescripcion(),it.getPrecio(),it.getStock()});
-                    //metodo para agregar al modelo(tabla) addRow con un object.
+                modelo.addRow(new Object[]{it.getCodigo(), it.getDescripcion(), it.getPrecio(), it.getStock()});
+                //metodo para agregar al modelo(tabla) addRow con un object.
             }
         }
     }//GEN-LAST:event_jtfNombreKeyReleased
+    //Arma la tabla
+    private void armarCabecera() {
+        modelo.addColumn("Código");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Stock");
+        jtTablaNombre.setModel(modelo);
+    }
 
-
+    //Borra la fila de la tabla
+    private void borrarFilas() {
+        int f = jtTablaNombre.getRowCount() - 1; //cuenta las filas -1
+        for (; f >= 0; f--) { //inicializa f arriba
+            modelo.removeRow(f);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -132,19 +144,4 @@ public class PorNombre extends javax.swing.JInternalFrame {
     private javax.swing.JTable jtTablaNombre;
     private javax.swing.JTextField jtfNombre;
     // End of variables declaration//GEN-END:variables
-    private void armarCabecera(){
-        modelo.addColumn("Código");
-        modelo.addColumn("Descripcion");
-        modelo.addColumn("Precio");
-        modelo.addColumn("Stock");
-        jtTablaNombre.setModel(modelo);
-    }
-    private void borrarFilas(){
-        //este metodo borra las filas de productos en el buscador
-        int f=jtTablaNombre.getRowCount()-1; //cuenta las filas -1
-        for(;f>=0;f--){ //inicializa f arriba
-            modelo.removeRow(f);
-        }
-    }
-
 }
