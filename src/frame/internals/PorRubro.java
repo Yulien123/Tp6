@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package frame.internals;
 
 import entitys.Producto;
-import enums.Categoria;
 import static frame.Menu.listaProductos;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,7 +21,6 @@ public class PorRubro extends javax.swing.JInternalFrame {
      */
     public PorRubro() {
         initComponents();
-        //cargarComboBox();
         armarCabecera();
     }
 
@@ -106,7 +100,7 @@ public class PorRubro extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //Busca en la tabla y a la vez elimina filas al cambiar rubro
     private void jcbRubroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbRubroActionPerformed
         borrarFilas();
         String rubroSelect = (String) jcbRubro.getSelectedItem();
@@ -120,17 +114,7 @@ public class PorRubro extends javax.swing.JInternalFrame {
     private void jcbRubroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jcbRubroKeyReleased
 
     }//GEN-LAST:event_jcbRubroKeyReleased
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JComboBox<String> jcbRubro;
-    private javax.swing.JTable jtTablaRubro;
-    // End of variables declaration//GEN-END:variables
-
-    //Tabla
+    //Arma filas y columnas de la tabla
     private void armarCabecera() {
         modelo1.addColumn("Código");
         modelo1.addColumn("Descripcion");
@@ -139,17 +123,18 @@ public class PorRubro extends javax.swing.JInternalFrame {
         jtTablaRubro.setModel(modelo1);
     }
 
+    //Borra las filas de productos en la tabla cambiando el rubro
     private void borrarFilas() {
-        //este metodo borra las filas de productos en el buscador
         int f = jtTablaRubro.getRowCount() - 1; //cuenta las filas -1
         for (; f >= 0; f--) { //inicializa f arriba
             modelo1.removeRow(f);
         }
     }
-
-//    private void cargarComboBox() {
-//        jcbRubro.addItem(Categoria.COMESTIBLE.toString());
-//        jcbRubro.addItem(Categoria.LIMPIEZA.toString());
-//        jcbRubro.addItem(Categoria.PERFUMERIA.toString());
-//    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jcbRubro;
+    private javax.swing.JTable jtTablaRubro;
+    // End of variables declaration//GEN-END:variables
 }
