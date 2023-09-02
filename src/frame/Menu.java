@@ -5,7 +5,10 @@
 package frame;
 
 import entitys.Producto;
+import frame.internals.GestionProductos;
 import frame.internals.PorNombre;
+import frame.internals.PorPrecio;
+import frame.internals.PorRubro;
 import java.util.TreeSet;
 
 /**
@@ -13,12 +16,15 @@ import java.util.TreeSet;
  * @author julan
  */
 public class Menu extends javax.swing.JFrame {
-    public static  TreeSet<Producto> listaProductos = new TreeSet<>();
+
+    public static TreeSet<Producto> listaProductos = new TreeSet<>();
+
     /**
      * Creates new form Menu
      */
     public Menu() {
         initComponents();
+        cargarProductosPrueba();
     }
 
     /**
@@ -44,17 +50,20 @@ public class Menu extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setTitle("De Todo S.A");
+        setPreferredSize(new java.awt.Dimension(1020, 780));
+
+        jdpEscritorio.setPreferredSize(new java.awt.Dimension(1020, 780));
 
         javax.swing.GroupLayout jdpEscritorioLayout = new javax.swing.GroupLayout(jdpEscritorio);
         jdpEscritorio.setLayout(jdpEscritorioLayout);
         jdpEscritorioLayout.setHorizontalGroup(
             jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 683, Short.MAX_VALUE)
+            .addGap(0, 1020, Short.MAX_VALUE)
         );
         jdpEscritorioLayout.setVerticalGroup(
             jdpEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 452, Short.MAX_VALUE)
+            .addGap(0, 780, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Administracion");
@@ -72,6 +81,11 @@ public class Menu extends javax.swing.JFrame {
         jMenu2.setText("Buscar");
 
         jMenuItem2.setText("Por rubro");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuItem3.setText("Por nombre");
@@ -83,6 +97,11 @@ public class Menu extends javax.swing.JFrame {
         jMenu2.add(jMenuItem3);
 
         jMenuItem4.setText("Por precio");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem4);
 
         jMenuBar1.add(jMenu2);
@@ -93,29 +112,57 @@ public class Menu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdpEscritorio)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jdpEscritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdpEscritorio)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jdpEscritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //Gestion de productos
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+        jdpEscritorio.removeAll();
+        jdpEscritorio.repaint();
+        GestionProductos gp = new GestionProductos();
+        gp.setVisible(true);
+        jdpEscritorio.add(gp);
+        jdpEscritorio.moveToFront(gp);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
+    //busqueda por nombre
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-            jdpEscritorio.removeAll(); //si hay una ventana puesta la remueve
-            jdpEscritorio.repaint(); //se redibuja
-            PorNombre bpn = new PorNombre(); //instanciamos la internal
-            bpn.setVisible(true); // al instanciarla esta invisible, seteo la visibilidad a true.
-            jdpEscritorio.add(bpn); // agregamos al Desktop Pane la busqueda por nombre;
-            jdpEscritorio.moveToFront(bpn); // mandamos la internal hacia el frente del desktop.
-            
+        jdpEscritorio.removeAll(); //si hay una ventana puesta la remueve
+        jdpEscritorio.repaint(); //se redibuja
+        PorNombre bpn = new PorNombre(); //instanciamos la internal
+        bpn.setVisible(true); // al instanciarla esta invisible, seteo la visibilidad a true.
+        jdpEscritorio.add(bpn); // agregamos al Desktop Pane la busqueda por nombre;
+        jdpEscritorio.moveToFront(bpn); // mandamos la internal hacia el frente del desktop.
+
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+    //busqueda por rubro
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        jdpEscritorio.removeAll();
+        jdpEscritorio.repaint();
+        PorRubro bpr = new PorRubro();
+        bpr.setVisible(true);
+        jdpEscritorio.add(bpr);
+        jdpEscritorio.moveToFront(bpr);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    //busqueda por precio
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        jdpEscritorio.removeAll();
+        jdpEscritorio.repaint();
+        PorPrecio bpp = new PorPrecio();
+        bpp.setVisible(true);
+        jdpEscritorio.add(bpp);
+        jdpEscritorio.moveToFront(bpp);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,6 +209,18 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JDesktopPane jdpEscritorio;
+    public static javax.swing.JDesktopPane jdpEscritorio;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarProductosPrueba() {
+        listaProductos.add(new Producto(11, "Galletas surtidas", 670.50, 5, "COMESTIBLE"));
+        listaProductos.add(new Producto(10, "Azucar x 1kg", 180.50, 5, "COMESTIBLE"));
+        listaProductos.add(new Producto(12, "Yerba Mate x 1kg", 850.50, 10, "COMESTIBLE"));
+        listaProductos.add(new Producto(74, "Lavandina x 1lt", 580.00, 6, "LIMPIEZA"));
+        listaProductos.add(new Producto(43, "Detergente x 1lt", 480.00, 6, "LIMPIEZA"));
+        listaProductos.add(new Producto(22, "Jabon liquido x 1lt", 368.00, 6, "LIMPIEZA"));
+        listaProductos.add(new Producto(112, "Desodorante Rexona x 500ml", 256.50, 12, "PERFUMERIA"));
+        listaProductos.add(new Producto(2542, "Desodorante en crema", 345.50, 12, "PERFUMERIA"));
+        listaProductos.add(new Producto(37522, "Perfume Hombre x 500ml", 256.50, 12, "PERFUMERIA"));
+    }
 }
