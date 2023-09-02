@@ -1,11 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package entitys;
-
-import enums.Categoria;
-
 /**
  *
  * @author julan
@@ -16,9 +9,9 @@ public class Producto implements Comparable<Producto> {
     private String descripcion;
     private double precio;
     private int stock;
-    private Categoria rubro;
+    private String rubro;
 
-    public Producto(int codigo, String descripcion, double precio, int stock, Categoria rubro) {
+    public Producto(int codigo, String descripcion, double precio, int stock, String rubro) {
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.precio = precio;
@@ -58,11 +51,11 @@ public class Producto implements Comparable<Producto> {
         this.stock = stock;
     }
 
-    public Categoria getRubro() {
+    public String getRubro() {
         return rubro;
     }
 
-    public void setRubro(Categoria rubro) {
+    public void setRubro(String rubro) {
         this.rubro = rubro;
     }
 
